@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "currency".
  *
@@ -17,6 +19,17 @@ class Currency extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'currency';
+    }
+
+    public function fields()
+    {
+        return [
+            'id',
+            'name',
+            'rate' => function (Currency $model) {
+                return Yii::$app->formatter->asDecimal($model->rate, 4);
+            }
+        ];
     }
 
     /**
